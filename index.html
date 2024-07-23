@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            background-image: url('https://www.clubmahindra.com/blog/media/section_images/unique-thi-9b61e9cde66c5b4.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 100px;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        .button {
+            padding: 20px 40px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            padding: 15px 35px;
+        }
+        .form-container {
+            display: none;
+            margin-top: 20px;
+        }
+        label, input, select {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .prediction, .admin-message {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+        <button class="button" onclick="showUserForm()">User</button>
+        <button class="button" onclick="showAdminForm()">Admin</button>
+        <div class="form-container" id="user-form-container">
+            <h2>User Input</h2>
+            <form id="prediction-form">
+                <label>Total Sqft:</label>
+                <input type="text" name="total_sqft" required>
+                <label>Bathrooms:</label>
+                <input type="text" name="bath" required>
+                <label>Balconies:</label>
+                <input type="text" name="balcony" required>
+                <label>Size (BHK):</label>
+                <input type="text" name="size" required>
+                <label>Location:</label>
+            <select name="location" required>
+                <option value="Electronic City Phase II">Electronic City Phase II</option>
+                <option value="Chikka Tirupathi">Chikka Tirupathi</option>
+                <option value="Uttarahalli">Uttarahalli</option>
+                <option value="Lingadheeranahalli">Lingadheeranahalli</option>
+                <option value="Kothanur">Kothanur</option>
+                <option value="Whitefield">Whitefield</option>
+                <option value="Old Airport Road">Old Airport Road</option>
+                <option value="Rajaji Nagar">Rajaji Nagar</option>
+                <option value="Marathahalli">Marathahalli</option>
+                <option value="Gandhi Bazar">Gandhi Bazar</option>
+                <option value="7th Phase JP Nagar">7th Phase JP Nagar</option>
+                <option value="Gottigere">Gottigere</option>
+                <option value="Sarjapur">Sarjapur</option>
+                <option value="Mysore Road">Mysore Road</option>
+                <option value="Bisuvanahalli">Bisuvanahalli</option>
+                <option value="Raja Rajeshwari Nagar">Raja Rajeshwari Nagar</option>
+                <option value="Ramakrishnappa Layout">Ramakrishnappa Layout</option>
+                <option value="Manayata Tech Park">Manayata Tech Park</option>
+                <option value="Kengeri">Kengeri</option>
+            </select>
+                <label>Area Type:</label>
+                <select name="area_type" required>
+                    <option value="Super built-up Area">Super built-up Area</option>
+                    <option value="Plot Area">Plot Area</option>
+                    <option value="Built-up Area">Built-up Area</option>
+                </select><br><br>
+                <input type="submit" value="Predict">
+            </form>
+            <div class="prediction" id="prediction-result"></div>
+            <!-- <button class="button" onclick="contactAdmin()">Contact Admin for Details</button> -->
+        </div>
+        <div class="form-container" id="admin-form-container">
+            <h2>Admin Input</h2>
+            <form id="admin-form">
+                <label>Total Sqft: range(300,10000)</label>
+                <input type="text" name="total_sqft" required>
+                <label>Bathrooms: range(1,5)</label>
+                <input type="text" name="bath" required>
+                <label>Balconies: range(0,5)</label>
+                <input type="text" name="balcony" required>
+                <label>Size (BHK): range(1,5)</label>
+                <input type="text" name="size" required>
+                <label>Location:</label>
+            <select name="location" required>
+                <option value="Electronic City Phase II">Electronic City Phase II</option>
+                <option value="Chikka Tirupathi">Chikka Tirupathi</option>
+                <option value="Uttarahalli">Uttarahalli</option>
+                <option value="Lingadheeranahalli">Lingadheeranahalli</option>
+                <option value="Kothanur">Kothanur</option>
+                <option value="Whitefield">Whitefield</option>
+                <option value="Old Airport Road">Old Airport Road</option>
+                <option value="Rajaji Nagar">Rajaji Nagar</option>
+                <option value="Marathahalli">Marathahalli</option>
+                <option value="Gandhi Bazar">Gandhi Bazar</option>
+                <option value="7th Phase JP Nagar">7th Phase JP Nagar</option>
+                <option value="Gottigere">Gottigere</option>
+                <option value="Sarjapur">Sarjapur</option>
+                <option value="Mysore Road">Mysore Road</option>
+                <option value="Bisuvanahalli">Bisuvanahalli</option>
+                <option value="Raja Rajeshwari Nagar">Raja Rajeshwari Nagar</option>
+                <option value="Ramakrishnappa Layout">Ramakrishnappa Layout</option>
+                <option value="Manayata Tech Park">Manayata Tech Park</option>
+                <option value="Kengeri">Kengeri</option>
+            </select>
+                <label>Area Type:</label>
+                <select name="area_type" required>
+                    <option value="Super built-up Area">Super built-up Area</option>
+                    <option value="Plot Area">Plot Area</option>
+                    <option value="Built-up Area">Built-up Area</option>
+                </select>
+                <label>Price: (in lakhs)</label>
+                <input type="text" name="price" required><br><br>
+                <input type="submit" value="Add Property">
+            </form>
+            <div class="admin-message" id="admin-message"></div>
+        </div>
+    </div>
+    <script>
+        function showUserForm() {
+            document.getElementById('user-form-container').style.display = 'block';
+            document.getElementById('admin-form-container').style.display = 'none';
+        }
+
+        function showAdminForm() {
+            document.getElementById('user-form-container').style.display = 'none';
+            document.getElementById('admin-form-container').style.display = 'block';
+        }
+
+        // async function contactAdmin() {
+        //     alert('Please contact admin_houseprice@gmail.com for more details.');
+        // }
+
+        document.getElementById('prediction-form').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+            const response = await fetch('/predict_rf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            document.getElementById('prediction-result').innerText = 'Predicted Price: ' + result.prediction_rf + ' lakhs';
+        };
+
+        document.getElementById('admin-form').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+            const response = await fetch('/add_property', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.error) {
+                document.getElementById('admin-message').innerText = 'Error: ' + result.error;
+            } else {
+                document.getElementById('admin-message').innerText = result.message;
+            }
+        };
+    </script>
+</body>
+</html>
